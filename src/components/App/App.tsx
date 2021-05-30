@@ -10,6 +10,7 @@ import { useState } from 'react';
 import '../../style/global.scss';
 import Body from '../Body/Body';
 import Ativos from '../Ativos';
+import Unidades from '../Unidades';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -67,7 +68,7 @@ function handleClickButton(component: string) {
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              <Ativos />
+              <Unidades />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

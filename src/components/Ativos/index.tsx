@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import { Table, Tag, Space, Avatar } from 'antd';
+import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 
