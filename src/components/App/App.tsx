@@ -12,6 +12,7 @@ import Body from '../Body/Body';
 import Ativos from '../Ativos';
 import Unidades from '../Unidades';
 import Empresas from '../Empresas';
+import Usuarios from '../Usuarios';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -69,7 +70,7 @@ function handleClickButton(component: string) {
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              <Empresas />
+              <Usuarios />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
