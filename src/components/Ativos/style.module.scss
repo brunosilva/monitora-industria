@@ -1,0 +1,33 @@
+.container{
+    table{
+        img{
+            max-width: 100px;
+        }
+
+        tbody{
+            tr{
+                .idColumn{
+                    width:2%;
+                }
+        
+                .sensorColumn{
+                    width:5%;
+                }
+        
+                .imageColumn{
+                    width:100px;
+                }
+        
+                .statusColumn{
+                    width:10%;
+                    text-align:center;
+                }
+        
+                .healthColumn{
+                    width: 5%;
+                }
+            }
+        }
+        
+    }
+}
