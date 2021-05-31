@@ -28,6 +28,17 @@
                 }
             }
         }
-        
+    }
+
+    .detalhes-ativo{
+        .ant-page-header{
+            .ant-page-header-heading{
+                span{
+                    img{
+                        width: 200px;
+                    }
+                }
+            }
+        }
     }
 }
