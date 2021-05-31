@@ -7,19 +7,20 @@ import {
 } from '@ant-design/icons';
 import { useState } from 'react';
 
-import '../../style/global.scss';
-import Body from '../Body/Body';
-import Ativos from '../Ativos';
-import Unidades from '../Unidades';
-import Empresas from '../Empresas';
-import Usuarios from '../Usuarios';
+import '../style/global.scss';
+import Body from '../components/Body/Body';
+import Ativos from '../components/Ativos';
+import Unidades from '../components/Unidades';
+import Empresas from '../components/Empresas';
+import Usuarios from '../components/Usuarios';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function App(){
 const [collapsed, setCollapsed] = useState(false);
+//const [screenMonitor, setScreenMonitor] = useState('Body');
 
-const [selectedComponent, setSelectedComponent] = useState("");
+const [selectedComponent, setSelectedComponent] = useState('');
   
 const state = {
   selectedComponent,
@@ -28,6 +29,7 @@ const state = {
 
 function handleClickButton(component: string) {
   setSelectedComponent(component);
+  //setScreenMonitor(component);
 }
 
 
@@ -70,7 +72,7 @@ function handleClickButton(component: string) {
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              <Usuarios />
+              <Body />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App/App';
+import App from './App/App';
 
 import { ConfigProvider } from 'antd';
 import ptBR from 'antd/lib/locale/pt_BR';

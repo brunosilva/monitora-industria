@@ -1,7 +1,5 @@
-import { Input } from "antd";
-
 export default function Body(){
     return(
-        <Input placeholder="Basic usage" />
+    <h1>Monitor de Equipamentos insdustriais</h1>
     )
 }
