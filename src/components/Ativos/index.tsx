@@ -1,13 +1,10 @@
-import { Button, Card, Col, Descriptions, PageHeader, Row, Statistic, Tabs, Typography } from 'antd';
-import { Table } from 'antd';
-import {
-    EyeOutlined
-  } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
+import { Card, Col, Image, Progress, Row, Statistic, Tabs, Typography } from 'antd';
+
 import { api } from '../../services/api';
 
 import style from './style.module.scss';
-import { Content } from 'antd/lib/layout/layout';
+
 
 const { Title } = Typography;
 
@@ -55,7 +52,7 @@ export default function Ativos() {
 
     useEffect(() => {
         api.get<AtivosDetalhesProps>(`/assets/${ativoPesquisar}`).then(response => {
-            console.log(response.data)
+            console.log(response.data.metrics);
             setAtivoDetalhe(response.data);
         })
     }, [ativoPesquisar])
@@ -64,140 +61,112 @@ export default function Ativos() {
     function handleClickButton(id: number) {
         setAtivoPesquisar(id);
     }
-    
-    const data = ativos.map(row => ({
-        id: row.id,
-        productimage: row.image,
-        name: row.name,
-        status: row.status,
-        key: row.id
-    }))
 
-    const columns = [
-        {
-            title: 'Id',
-            dataIndex: 'id',
-            key: 'id',
-            className: 'idColumn',
-        },
-        {
-            title: '',
-            dataIndex: 'image',
-            key: 'image',
-            render: (text: any, record: { productimage: string | undefined; }) => {
-                return (
-                    <img src={record.productimage} />
-                );
-            },
-            className: 'imageColumn',
-        },
-        {
-            title: 'Nome',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-            className: 'statusColumn',
-        },
-        {
-            title: '',
-            dataIndex: 'view',
-            key: 'view',
-            render: (text: any, record: { key: any; }) => (
-                <a href="javascript:void(0)" 
-                  onClick={(e) => { handleClickButton(record.key); }}
-                >
-                  Ver detalhes
-                </a>
-            ),
-        }
-    ];
-
+    function ImageDetalhe() {
+        return (
+          <Image
+            width={200}
+            src={ativoDetalhe.image}
+            alt={ativoDetalhe.name}
+          />
+        );
+    }
 
     const { TabPane } = Tabs;
-
-    const renderContent = (column = 2) => (
-      <Descriptions size="small" column={column}>
-        <Descriptions.Item label="Created">Lili Qu</Descriptions.Item>
-        <Descriptions.Item label="Association">
-          <a>421421</a>
-        </Descriptions.Item>
-        <Descriptions.Item label="Creation Time">2017-01-10</Descriptions.Item>
-        <Descriptions.Item label="Effective Time">2017-10-10</Descriptions.Item>
-        <Descriptions.Item label="Remarks">
-          Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
-        </Descriptions.Item>
-      </Descriptions>
-    );
-    
-    const extraContent = (
-      <div
-        style={{
-          display: 'flex',
-          width: 'max-content',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <Statistic
-          title="Status"
-          value={ativoDetalhe.status}
-          style={{
-            marginRight: 32,
-          }}
-        />
-        <Statistic title="Price" prefix="$" value={568.08} />
-      </div>
-    );
-    
-    const Content = () => (
-      <div className="content">
-        <div className="main">{renderContent}</div>
-        <div className="extra">{extraContent}</div>
-      </div>
-    );
 
     return (
         <div className={style.container}>
             <Title level={3}>Ativos</Title>
 
-            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+            <Row className={style.content} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 <Col className="gutter-row" span={12}>
-                    <Table columns={columns} dataSource={data} />
+                    <div className={style.columnCards}>
+                        {ativos.map(item => (
+                            <Card 
+                                className={style.card}
+                                key={item.id} 
+                                type="inner" 
+                                hoverable
+                                >
+                                    <Row>
+                                        <Col span={4}>
+                                            <Image
+                                                width={80}
+                                                src={item.image}
+                                                alt={item.name}
+                                            />
+                                        </Col>
+                                        <Col span={8}>
+                                            {item.name}
+                                        </Col>
+                                        <Col span={8}>
+                                            {item.status}
+                                        </Col>
+                                        <Col span={4}>
+                                            <a onClick={(e) => handleClickButton(item.id)} >Ver detalhes</a>
+                                        </Col>
+                                    </Row>
+                            </Card>
+                        ))}
+                    </div>
                 </Col>
-                <Col className="gutter-row detalhes-ativo" span={12}>
-                    <PageHeader
-                        className="site-page-header-responsive"
-                        title={ativoDetalhe.name}
-                        subTitle="This is a subtitle"
-                        extra={[
-                            <img className="imagem-ativo" width="200" src={ativoDetalhe.image} alt={ativoDetalhe.name} />
-                        ]}
-                        footer={
+                <Col className="gutter-row" span={12}>
+                    <div className={style.detalhesAtivo}>
+                        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                            <Col className="gutter-row" span={12}>
+                                <Row className={style.rowInfo}>
+                                    <Col span={12}>
+                                        <Statistic title="Nome" value={ativoDetalhe.name} />
+                                    </Col>
+                                    <Col span={12}>
+                                        <Progress type="circle" percent={ativoDetalhe.healthscore} />
+                                    </Col>
+                                    
+                                </Row>
+                                <Row className={style.rowInfo}>
+                                    <Col span={12}>
+                                        <Statistic title="Status" value={ativoDetalhe.status} />
+                                    </Col>
+                                    <Col span={12}>
+                                        <Statistic title="Modelo" value={ativoDetalhe.model} />
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className="gutter-row" span={12}>
+                                <ImageDetalhe />
+                            </Col>
+                        </Row>
+                        <Row className="tabs-infos">
                             <Tabs defaultActiveKey="1">
-                                <TabPane tab="Tab 1" key="1">
-                                    Content of Tab Pane 1
+                                <TabPane tab="Especificações" key="1">
+                                    <Row>
+                                        <Col span={24}>
+                                            <span className="title">Temperatura maxima</span>
+                                            {/* <strong className="info">{ativoDetalhe.specifications.map(elem => (
+                                                <Statistic title="maxTemp" value={elem.maxTemp} />
+                                            ))}</strong> */}
+                                        </Col>
+                                    </Row>
                                 </TabPane>
-                                <TabPane tab="Tab 2" key="2">
-                                    Content of Tab Pane 2
-                                </TabPane>
-                                <TabPane tab="Tab 3" key="3">
-                                    Content of Tab Pane 3
+                                <TabPane tab="Métricas" key="2">
+                                    <Row gutter={2}>
+                                        {/* <Col span={8}>
+                                            <span className="title">totalCollectsUptime</span>
+                                            <strong className="info">{ativoDetalhe.metrics[0]}</strong>
+                                        </Col>
+                                        <Col span={8}>
+                                            <span className="title">totalUptime</span>
+                                            <strong className="info">{ativoDetalhe.metrics[1]}</strong>
+                                        </Col>
+                                        <Col span={8}>
+                                            <span className="title">lastUptimeAt</span>
+                                            <strong className="info">{ativoDetalhe.metrics[2]}</strong>
+                                        </Col> */}
+                                    </Row>
                                 </TabPane>
                             </Tabs>
-                        }
-                    >
-                        <Content></Content>
-                    </PageHeader>
-                    <Card key={ativoDetalhe.id}>
-                        <p></p>
-                        <p>{ativoDetalhe.model}</p>
-                        <p>{ativoDetalhe.sensors}</p>
-                        <p></p>
-                        <p>{ativoDetalhe.healthscore}</p>
-                    </Card>
+                        </Row>
+                    </div>
                 </Col>
             </Row>
             

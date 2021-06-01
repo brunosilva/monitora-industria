@@ -75,7 +75,7 @@ function handleClickButton(component: string) {
               <Ativos />
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          <Footer style={{ textAlign: 'center' }}><a href="https://www.linkedin.com/in/bruno-silva0109/" target="_blank">Bruno Silva</a> ©2021</Footer>
         </Layout>
       </Layout>
   )

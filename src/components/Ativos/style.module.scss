@@ -1,44 +1,37 @@
 .container{
-    table{
-        img{
-            max-width: 100px;
+    .content{
+        @media only screen and (max-width:768px){
+            display:flex;
+            flex-direction:column;
         }
 
-        tbody{
-            tr{
-                .idColumn{
-                    width:2%;
-                }
-        
-                .sensorColumn{
-                    width:5%;
-                }
-        
-                .imageColumn{
-                    width:100px;
-                }
-        
-                .statusColumn{
-                    width:10%;
-                    text-align:center;
-                }
-        
-                .healthColumn{
-                    width: 5%;
-                }
-            }
-        }
-    }
+        .columnCards{
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 2rem;
 
-    .detalhes-ativo{
-        .ant-page-header{
-            .ant-page-header-heading{
-                span{
-                    img{
-                        width: 200px;
-                    }
-                }
+            &::-webkit-scrollbar {
+                width: 5px;               /* width of the entire scrollbar */
+            }
+              
+            &::-webkit-scrollbar-track {
+                background: var(--gray-6);        /* color of the tracking area */
+            }
+              
+            &::-webkit-scrollbar-thumb {
+                background: var(--gray-10);    /* color of the scroll thumb */
+                border-radius: 20px;       /* roundness of the scroll thumb */
+            }
+
+            .card{
+                margin-bottom: 1rem;
             }
         }
-    }
+
+        .detalhesAtivo{
+            .rowInfo{
+                margin-bottom: 2rem;
+            }
+        }
+    }  
 }
