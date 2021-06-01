@@ -1,11 +1,10 @@
-import { Typography } from 'antd';
+import { Button, Card, Col, Row, Statistic, Typography } from 'antd';
 import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { api } from '../../services/api';
 
 import style from './style.module.scss';
-
 
 const { Title } = Typography;
 
@@ -15,46 +14,71 @@ interface UnidadeProps {
     companyId:number;
 }
 
+interface UnidadeDetalheProps {
+    id: number;
+    name: string;
+}
+
 export default function Unidades(){
     const [unidades, setUnidades] = useState<UnidadeProps[]>([]);
+    const [unidadesPesquisar, setUnidadesPesquisar] = useState(1);
+    const [unidadeDetalhe, setUnidadeDetalhe] = useState<UnidadeDetalheProps>({} as UnidadeDetalheProps);
+
     
     useEffect(() => {
         api.get<UnidadeProps[]>(`/units`).then(response => {
             setUnidades(response.data);
         })
     }, []);
+    
+    useEffect(() => {
+        api.get<UnidadeDetalheProps>(`/units/${unidadesPesquisar}`).then(response => {
+            setUnidadeDetalhe(response.data);
+        })
+    }, [unidadesPesquisar])
 
-    const data = unidades.map( row => ({
-        id: row.id,
-        name: row.name,
-        companyId: row.companyId
-    }));
-
-    const columns = [
-        {
-            title: 'Id',
-            dataIndex: 'id',
-            key: 'id',
-            className: 'idColumn',
-        },
-        {
-            title: 'Nome',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Empresa',
-            dataIndex: 'companyId',
-            key: 'companyId',
-        }
-    ]
-
+    function handleClickButton(id: number) {
+        setUnidadesPesquisar(id);
+    }
 
     return (
         <div className={style.container}>
             <Title level={3}>Unidades</Title>
 
-            <Table columns={columns} dataSource={data} />
+            <Row className={style.content} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <Col className="gutter-row" span={12}>
+                    <div className={style.columnCards}>
+                        {unidades.map(item => (
+                            <Card 
+                                className={style.card}
+                                key={item.id} 
+                                type="inner" 
+                                hoverable
+                                >
+                                    <Row className={style.rowInfoCard}>
+                                        <Col span={20}>
+                                            {item.name}
+                                        </Col>
+                                        <Col span={4}>
+                                            <Button type="primary" onClick={(e) => handleClickButton(item.id)}>Ver detalhes</Button>
+                                        </Col>
+                                    </Row>
+                            </Card>
+                        ))}
+                    </div>
+                </Col>
+                <Col className="gutter-row" span={12}>
+                    <div className={style.detalhesAtivo}>
+                        <Col className={style.nameItem} span={24}>
+                            <Statistic title="Id" value={unidadeDetalhe.id} />
+                        </Col>
+
+                        <Col span={24}>
+                            <Statistic title="Modelo" value={unidadeDetalhe.name} />
+                        </Col>
+                    </div>
+                </Col>
+            </Row>
         </div>
     )
 }
