@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Alert, Button, Card, Col, Image, Progress, Row, Statistic, Tabs, Typography } from 'antd';
+import { useEffect, useState } from 'react';
 
 import { api } from '../../services/api';
 
 import style from './style.module.scss';
-
 
 const { Title } = Typography;
 

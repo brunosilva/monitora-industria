@@ -22,7 +22,6 @@ export default function Unidades(){
     const [unidades, setUnidades] = useState<UnidadeProps[]>([]);
     const [unidadesPesquisar, setUnidadesPesquisar] = useState(1);
     const [unidadeDetalhe, setUnidadeDetalhe] = useState<UnidadeDetalheProps>({} as UnidadeDetalheProps);
-
     
     useEffect(() => {
         api.get<UnidadeProps[]>(`/units`).then(response => {
