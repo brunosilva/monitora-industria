@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Col, Image, Progress, Row, Statistic, Tabs, Typography } from 'antd';
+import { Alert, Button, Card, Col, Image, Progress, Row, Statistic, Tabs, Typography } from 'antd';
 
 import { api } from '../../services/api';
 
@@ -39,6 +39,11 @@ interface AtivosDetalhesProps{
     companyId: number;
 }
 
+interface UnidadeProps {
+    id: number;
+    name: string;
+}
+
 export default function Ativos() {
     const [ativos, setAtivos] = useState<AtivosProps[]>([]);
     const [ativoPesquisar, setAtivoPesquisar] = useState(1);
@@ -52,11 +57,22 @@ export default function Ativos() {
 
     useEffect(() => {
         api.get<AtivosDetalhesProps>(`/assets/${ativoPesquisar}`).then(response => {
-            console.log(response.data.metrics);
             setAtivoDetalhe(response.data);
         })
     }, [ativoPesquisar])
 
+    function renderStatus() {
+        switch(ativoDetalhe.status) {
+            case 'inAlert':
+                return <Alert message="Em Alerta" type="warning" />;
+            case 'inOperation':
+                return <Alert message="Em Operação" type="success" />;
+            case 'inDowntime':
+                return <Alert message="Em Parada" type="error" />;
+            default:
+                return '';
+        }
+    };
 
     function handleClickButton(id: number) {
         setAtivoPesquisar(id);
@@ -88,10 +104,10 @@ export default function Ativos() {
                                 type="inner" 
                                 hoverable
                                 >
-                                    <Row>
+                                    <Row className={style.rowInfoCard}>
                                         <Col span={4}>
                                             <Image
-                                                width={80}
+                                                width={50}
                                                 src={item.image}
                                                 alt={item.name}
                                             />
@@ -103,7 +119,7 @@ export default function Ativos() {
                                             {item.status}
                                         </Col>
                                         <Col span={4}>
-                                            <a onClick={(e) => handleClickButton(item.id)} >Ver detalhes</a>
+                                            <Button type="primary" onClick={(e) => handleClickButton(item.id)}>Ver detalhes</Button>
                                         </Col>
                                     </Row>
                             </Card>
@@ -115,8 +131,8 @@ export default function Ativos() {
                         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                             <Col className="gutter-row" span={12}>
                                 <Row className={style.rowInfo}>
-                                    <Col span={12}>
-                                        <Statistic title="Nome" value={ativoDetalhe.name} />
+                                    <Col className={style.nameItem} span={12}>
+                                        <Statistic title="Nome / Healthscore" value={ativoDetalhe.name} />
                                     </Col>
                                     <Col span={12}>
                                         <Progress type="circle" percent={ativoDetalhe.healthscore} />
@@ -124,11 +140,24 @@ export default function Ativos() {
                                     
                                 </Row>
                                 <Row className={style.rowInfo}>
-                                    <Col span={12}>
-                                        <Statistic title="Status" value={ativoDetalhe.status} />
+                                    <Col span={24}>
+                                        {renderStatus()}
                                     </Col>
+                                </Row>
+                                <Row className={style.rowInfo}>
                                     <Col span={12}>
                                         <Statistic title="Modelo" value={ativoDetalhe.model} />
+                                    </Col>
+                                    <Col span={12}>
+                                        Sensor
+                                    </Col>
+                                </Row>
+                                <Row className={style.rowInfo}>
+                                    <Col span={12}>
+                                        Empresa
+                                    </Col>
+                                    <Col span={12}>
+                                        Unidades
                                     </Col>
                                 </Row>
                             </Col>
@@ -172,4 +201,8 @@ export default function Ativos() {
             
         </div>
     )
+}
+
+function renderStatus(): string | number | boolean | {} | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | import("react").ReactNodeArray | import("react").ReactPortal | null | undefined {
+    throw new Error('Function not implemented.');
 }

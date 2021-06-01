@@ -72,7 +72,7 @@ function handleClickButton(component: string) {
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              <Ativos />
+              <Usuarios />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}><a href="https://www.linkedin.com/in/bruno-silva0109/" target="_blank">Bruno Silva</a> ©2021</Footer>

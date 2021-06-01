@@ -26,11 +26,23 @@
             .card{
                 margin-bottom: 1rem;
             }
+
+            .rowInfoCard{
+                div{
+                    display:flex;
+                    align-items:center;
+                }
+            }
         }
 
         .detalhesAtivo{
             .rowInfo{
                 margin-bottom: 2rem;
+
+                .nameItem{
+                    display:flex;
+                    align-items: center;
+                }
             }
         }
     }  
