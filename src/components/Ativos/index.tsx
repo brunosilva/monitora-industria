@@ -38,11 +38,6 @@ interface AtivosDetalhesProps{
     companyId: number;
 }
 
-interface UnidadeProps {
-    id: number;
-    name: string;
-}
-
 export default function Ativos() {
     const [ativos, setAtivos] = useState<AtivosProps[]>([]);
     const [ativoPesquisar, setAtivoPesquisar] = useState(1);
@@ -134,7 +129,14 @@ export default function Ativos() {
                                         <Statistic title="Nome / Healthscore" value={ativoDetalhe.name} />
                                     </Col>
                                     <Col span={12}>
-                                        <Progress type="circle" percent={ativoDetalhe.healthscore} />
+                                        <Progress 
+                                            strokeColor={{
+                                                '0%': '#108ee9',
+                                                '60%': '#FFA500',
+                                                '100%': '#FF0000',
+                                            }}
+                                            type="circle" 
+                                            percent={ativoDetalhe.healthscore} />
                                     </Col>
                                     
                                 </Row>
