@@ -1,5 +1,4 @@
 import { Button, Card, Col, Row, Statistic, Typography } from 'antd';
-import { Table } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { api } from '../../services/api';
