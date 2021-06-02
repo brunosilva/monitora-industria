@@ -15,6 +15,7 @@ interface AtivosProps {
 }
 
 interface AtivosDetalhesProps{
+    [x: string]: any;
     id: number;
     sensors: Array<{
         name: string
@@ -24,32 +25,37 @@ interface AtivosDetalhesProps{
     healthscore: number;
     name: string;
     image: string;
-    specifications: Array<{
+    specifications: {
         maxTemp: number;
         power: number;
         rpm: number;
-    }>;
-    metrics: Array<{
+    };
+    metrics: {
         totalCollectsUptime: number;
         totalUptime: number;
-        lastUptimeAt: Date;
-    }>;
+        lastUptimeAt?: Date;
+    };
     unitId: number;
     companyId: number;
 }
 
-interface MetricasProps {
-    totalCollectsUptime: number;
-    totalUptime: number;
-    lastUptimeAt: Date;
+interface EmpresaProds {
+    id: number;
+    name: string;
+}
+
+interface UnidadeProds {
+    id: number;
+    name: string;
 }
 
 export default function Ativos() {
     const [ativos, setAtivos] = useState<AtivosProps[]>([]);
     const [ativoPesquisar, setAtivoPesquisar] = useState(1);
     const [ativoDetalhe, setAtivoDetalhe] = useState<AtivosDetalhesProps>({} as AtivosDetalhesProps);
-    const [metricasInfos, setMetricasInfos] = useState<MetricasProps[]>({} as MetricasProps[]);
-
+    const [empresaInfo, setEmpresaInfo] = useState<EmpresaProds>();
+    const [unidadeInfo, setUnidadeInfo] = useState<UnidadeProds>();
+      
     useEffect(() => {
         api.get<AtivosProps[]>(`/assets`).then(response => {
             setAtivos(response.data);
@@ -59,6 +65,14 @@ export default function Ativos() {
     useEffect(() => {
         api.get<AtivosDetalhesProps>(`/assets/${ativoPesquisar}`).then(response => {
             setAtivoDetalhe(response.data);
+        })
+
+        api.get<EmpresaProds>(`/companies/${ativoPesquisar}`).then(response => {
+            setEmpresaInfo(response.data);
+        })
+
+        api.get<UnidadeProds>(`/units/${ativoPesquisar}`).then(response => {
+            setUnidadeInfo(response.data);
         })
     }, [ativoPesquisar])
 
@@ -113,13 +127,13 @@ export default function Ativos() {
                                                 alt={item.name}
                                             />
                                         </Col>
-                                        <Col xs={24} sm={24} md={24} lg={4}>
+                                        <Col xs={24} sm={24} md={24} lg={11}>
                                             {item.name}
                                         </Col>
-                                        <Col xs={24} sm={24} md={24} lg={4}>
+                                        <Col xs={24} sm={24} md={24} lg={5}>
                                             {item.status}
                                         </Col>
-                                        <Col xs={24} sm={24} md={24} lg={12}>
+                                        <Col xs={24} sm={24} md={24} lg={4}>
                                             <Button type="primary" onClick={(e) => handleClickButton(item.id)}>Ver detalhes</Button>
                                         </Col>
                                     </Row>
@@ -156,16 +170,18 @@ export default function Ativos() {
                                     <Col span={12}>
                                         <Statistic title="Modelo" value={ativoDetalhe.model} />
                                     </Col>
-                                    <Col span={12}>
-                                        {/* <Statistic title="Modelo" value={ativoDetalhe.sensors} /> */}
+
+
+
+                                </Row>
+                                <Row className={style.rowInfo}>
+                                    <Col span={24}>
+                                        <Statistic title="Empresa" value={empresaInfo?.name} />
                                     </Col>
                                 </Row>
                                 <Row className={style.rowInfo}>
-                                    <Col span={12}>
-                                        Empresa
-                                    </Col>
-                                    <Col span={12}>
-                                        Unidades
+                                    <Col span={24}>
+                                        <Statistic title="Unidade" value={unidadeInfo?.name} />
                                     </Col>
                                 </Row>
                             </Col>
@@ -176,27 +192,31 @@ export default function Ativos() {
                         <Row className="tabs-infos">
                             <Tabs defaultActiveKey="1">
                                 <TabPane tab="Especificações" key="1">
-                                    <Row>
+                                    <Row className={style.rowInfo}>
                                         <Col span={24}>
-                                            <span className="title">Temperatura maxima</span>
-                                            {/* <strong className="info">{ativoDetalhe.specifications.map(elem => (
-                                                <Statistic title="maxTemp" value={elem.maxTemp} />
-                                            ))}</strong> */}
+                                            <Statistic title="Max temp" value={ativoDetalhe.specifications?.maxTemp} />
+                                        </Col>
+                                    </Row>
+                                    <Row className={style.rowInfo}>
+                                        <Col span={24}>
+                                            <Statistic title="Power" value={ativoDetalhe.specifications?.power} />
+                                        </Col>
+                                    </Row>
+                                    <Row className={style.rowInfo}>
+                                        <Col span={24}>
+                                            <Statistic title="RPM" value={ativoDetalhe.specifications?.rpm} />
                                         </Col>
                                     </Row>
                                 </TabPane>
                                 <TabPane tab="Métricas" key="2">
-                                    <Row gutter={2}>
-                                        <Col span={8}>
-                                            {/* <Statistic title="totalCollectsUptime" value={ativoDetalhe.metrics.totalCollectsUptime} /> */}
+                                    <Row className={style.rowInfo}>
+                                        <Col span={24}>
+                                            <Statistic title="Tempo de atividade" value={ativoDetalhe.metrics?.totalCollectsUptime} />
                                         </Col>
-                                        <Col span={8}>
-                                            <span className="title">totalUptime</span>
-                                            {/* <strong className="info">{ativoDetalhe.metrics[1]}</strong> */}
-                                        </Col>
-                                        <Col span={8}>
-                                            <span className="title">lastUptimeAt</span>
-                                            {/* <strong className="info">{ativoDetalhe.metrics[2]}</strong> */}
+                                    </Row>
+                                    <Row className={style.rowInfo}>
+                                        <Col span={24}>
+                                            <Statistic title="Tempo total de coleta" value={ativoDetalhe.metrics?.totalUptime} />
                                         </Col>
                                     </Row>
                                 </TabPane>
