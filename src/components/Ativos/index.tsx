@@ -38,10 +38,17 @@ interface AtivosDetalhesProps{
     companyId: number;
 }
 
+interface MetricasProps {
+    totalCollectsUptime: number;
+    totalUptime: number;
+    lastUptimeAt: Date;
+}
+
 export default function Ativos() {
     const [ativos, setAtivos] = useState<AtivosProps[]>([]);
     const [ativoPesquisar, setAtivoPesquisar] = useState(1);
     const [ativoDetalhe, setAtivoDetalhe] = useState<AtivosDetalhesProps>({} as AtivosDetalhesProps);
+    const [metricasInfos, setMetricasInfos] = useState<MetricasProps[]>({} as MetricasProps[]);
 
     useEffect(() => {
         api.get<AtivosProps[]>(`/assets`).then(response => {
@@ -74,11 +81,11 @@ export default function Ativos() {
 
     function ImageDetalhe() {
         return (
-          <Image
-            width={200}
-            src={ativoDetalhe.image}
-            alt={ativoDetalhe.name}
-          />
+            <Image
+                width={200}
+                src={ativoDetalhe.image}
+                alt={ativoDetalhe.name}
+            />
         );
     }
 
@@ -89,7 +96,7 @@ export default function Ativos() {
             <Title level={3}>Ativos</Title>
 
             <Row className={style.content} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col className="gutter-row" span={12}>
+                <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
                     <div className={style.columnCards}>
                         {ativos.map(item => (
                             <Card 
@@ -99,20 +106,20 @@ export default function Ativos() {
                                 hoverable
                                 >
                                     <Row className={style.rowInfoCard}>
-                                        <Col span={4}>
+                                        <Col xs={24} sm={24} md={24} lg={4}>
                                             <Image
                                                 width={50}
                                                 src={item.image}
                                                 alt={item.name}
                                             />
                                         </Col>
-                                        <Col span={8}>
+                                        <Col xs={24} sm={24} md={24} lg={4}>
                                             {item.name}
                                         </Col>
-                                        <Col span={8}>
+                                        <Col xs={24} sm={24} md={24} lg={4}>
                                             {item.status}
                                         </Col>
-                                        <Col span={4}>
+                                        <Col xs={24} sm={24} md={24} lg={12}>
                                             <Button type="primary" onClick={(e) => handleClickButton(item.id)}>Ver detalhes</Button>
                                         </Col>
                                     </Row>
@@ -120,15 +127,15 @@ export default function Ativos() {
                         ))}
                     </div>
                 </Col>
-                <Col className="gutter-row" span={12}>
+                <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
                     <div className={style.detalhesAtivo}>
                         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                            <Col className="gutter-row" span={12}>
+                            <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
                                 <Row className={style.rowInfo}>
-                                    <Col className={style.nameItem} span={12}>
+                                    <Col className={style.nameItem} xs={24} sm={24} md={24} lg={12}>
                                         <Statistic title="Nome / Healthscore" value={ativoDetalhe.name} />
                                     </Col>
-                                    <Col span={12}>
+                                    <Col xs={24} sm={24} md={24} lg={12}>
                                         <Progress 
                                             strokeColor={{
                                                 '0%': '#108ee9',
@@ -150,7 +157,7 @@ export default function Ativos() {
                                         <Statistic title="Modelo" value={ativoDetalhe.model} />
                                     </Col>
                                     <Col span={12}>
-                                        Sensor
+                                        {/* <Statistic title="Modelo" value={ativoDetalhe.sensors} /> */}
                                     </Col>
                                 </Row>
                                 <Row className={style.rowInfo}>
@@ -162,7 +169,7 @@ export default function Ativos() {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col className="gutter-row" span={12}>
+                            <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
                                 <ImageDetalhe />
                             </Col>
                         </Row>
@@ -180,18 +187,17 @@ export default function Ativos() {
                                 </TabPane>
                                 <TabPane tab="Métricas" key="2">
                                     <Row gutter={2}>
-                                        {/* <Col span={8}>
-                                            <span className="title">totalCollectsUptime</span>
-                                            <strong className="info">{ativoDetalhe.metrics[0]}</strong>
+                                        <Col span={8}>
+                                            {/* <Statistic title="totalCollectsUptime" value={ativoDetalhe.metrics.totalCollectsUptime} /> */}
                                         </Col>
                                         <Col span={8}>
                                             <span className="title">totalUptime</span>
-                                            <strong className="info">{ativoDetalhe.metrics[1]}</strong>
+                                            {/* <strong className="info">{ativoDetalhe.metrics[1]}</strong> */}
                                         </Col>
                                         <Col span={8}>
                                             <span className="title">lastUptimeAt</span>
-                                            <strong className="info">{ativoDetalhe.metrics[2]}</strong>
-                                        </Col> */}
+                                            {/* <strong className="info">{ativoDetalhe.metrics[2]}</strong> */}
+                                        </Col>
                                     </Row>
                                 </TabPane>
                             </Tabs>
@@ -202,8 +208,4 @@ export default function Ativos() {
             
         </div>
     )
-}
-
-function renderStatus(): string | number | boolean | {} | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | import("react").ReactNodeArray | import("react").ReactPortal | null | undefined {
-    throw new Error('Function not implemented.');
 }

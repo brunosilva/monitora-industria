@@ -195,21 +195,21 @@ export default function Body() {
 
     return (
         <div className={style.container}>
-            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col className="gutter-row" span={8}>
-                    <HighchartsReact
+            <Row className={style.rowCharts} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <Col className="gutter-row" xs={24} sm={24} md={24} lg={8}>
+                    <HighchartsReact xs={24} sm={24} md={24} lg={8}
                         highcharts={Highcharts}
                         options={optionsChartAtivos}
                     />
                 </Col>
-                <Col className="gutter-row" span={8}>
-                    <HighchartsReact
+                <Col className="gutter-row" xs={24} sm={24} md={24} lg={8}>
+                    <HighchartsReact  xs={24} sm={24} md={24} lg={8}
                         highcharts={Highcharts}
                         options={optionsChart}
                     />
                 </Col>
-                <Col className="gutter-row" span={8}>
-                    <HighchartsReact
+                <Col className="gutter-row" xs={24} sm={24} md={24} lg={8}>
+                    <HighchartsReact xs={24} sm={24} md={24} lg={8}
                         highcharts={Highcharts}
                         options={optionsChartStatusAtivos}
                     />

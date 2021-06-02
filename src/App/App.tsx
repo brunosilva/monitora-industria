@@ -18,7 +18,7 @@ import '../style/global.scss';
 const { Header, Content, Footer, Sider } = Layout;
 
 export default function App(){
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [selectedComponent, setSelectedComponent] = useState('dashboard');
   
 function handleClickButton(component: string) {
