@@ -52,10 +52,10 @@ export default function Empresas(){
                                 hoverable
                                 >
                                     <Row className={style.rowInfoCard}>
-                                        <Col xs={24} sm={24} md={24} lg={24}>
+                                        <Col xs={24} sm={24} md={24} lg={20}>
                                             {item.name}
                                         </Col>
-                                        <Col xs={24} sm={24} md={24} lg={24}>
+                                        <Col xs={24} sm={24} md={24} lg={4}>
                                             <Button type="primary" onClick={(e) => handleClickButton(item.id)}>Ver detalhes</Button>
                                         </Col>
                                     </Row>

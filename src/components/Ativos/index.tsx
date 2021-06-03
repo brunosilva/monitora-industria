@@ -15,11 +15,10 @@ interface AtivosProps {
 }
 
 interface AtivosDetalhesProps{
-    [x: string]: any;
     id: number;
-    sensors: Array<{
+    sensors: {
         name: string
-    }>;
+    };
     model: string;
     status: string;
     healthscore: number;
@@ -147,7 +146,7 @@ export default function Ativos() {
                             <Col className="gutter-row" xs={24} sm={24} md={24} lg={24}>
                                 <Row className={style.rowInfo}>
                                     <Col className={style.nameItem} xs={24} sm={24} md={24} lg={9}>
-                                        <Statistic title="Nome / Healthscore" value={ativoDetalhe.name} />
+                                        <Statistic title="Nome / Healthscore / Foto" value={ativoDetalhe.name} />
                                     </Col>
                                     <Col xs={24} sm={24} md={24} lg={6}>
                                         <Progress 
@@ -164,10 +163,13 @@ export default function Ativos() {
                                     </Col>
                                 </Row>
                                 <Row className={style.rowInfo}>
-                                    <Col span={12}>
+                                    <Col span={9}>
                                         <Statistic title="Modelo" value={ativoDetalhe.model} />
                                     </Col>
-                                    <Col span={12}>
+                                    <Col span={9}>
+                                        <Statistic title="Sensor" value={ativoDetalhe.sensors?.name} />
+                                    </Col>
+                                    <Col span={6}>
                                         {renderStatus()}
                                     </Col>
                                 </Row>
@@ -218,7 +220,6 @@ export default function Ativos() {
                     </div>
                 </Col>
             </Row>
-            
         </div>
     )
 }

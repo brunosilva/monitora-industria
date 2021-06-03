@@ -72,8 +72,9 @@ export default function Unidades(){
                         </Col>
 
                         <Col span={24}>
-                            <Statistic title="Modelo" value={unidadeDetalhe.name} />
+                            <Statistic title="Unidade" value={unidadeDetalhe.name} />
                         </Col>
+
                     </div>
                 </Col>
             </Row>
