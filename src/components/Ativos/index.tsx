@@ -111,7 +111,7 @@ export default function Ativos() {
 
             <Row className={style.content} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
-                    <div className={style.columnCards}>
+                    <div className={style.overflowY}>
                         {ativos.map(item => (
                             <Card 
                                 className={style.card}
@@ -144,12 +144,12 @@ export default function Ativos() {
                 <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
                     <div className={style.detalhesAtivo}>
                         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                            <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
+                            <Col className="gutter-row" xs={24} sm={24} md={24} lg={24}>
                                 <Row className={style.rowInfo}>
-                                    <Col className={style.nameItem} xs={24} sm={24} md={24} lg={12}>
+                                    <Col className={style.nameItem} xs={24} sm={24} md={24} lg={9}>
                                         <Statistic title="Nome / Healthscore" value={ativoDetalhe.name} />
                                     </Col>
-                                    <Col xs={24} sm={24} md={24} lg={12}>
+                                    <Col xs={24} sm={24} md={24} lg={6}>
                                         <Progress 
                                             strokeColor={{
                                                 '0%': '#108ee9',
@@ -159,34 +159,27 @@ export default function Ativos() {
                                             type="circle" 
                                             percent={ativoDetalhe.healthscore} />
                                     </Col>
-                                    
-                                </Row>
-                                <Row className={style.rowInfo}>
-                                    <Col span={24}>
-                                        {renderStatus()}
+                                    <Col xs={24} sm={24} md={24} lg={9}>
+                                        <ImageDetalhe />
                                     </Col>
                                 </Row>
                                 <Row className={style.rowInfo}>
                                     <Col span={12}>
                                         <Statistic title="Modelo" value={ativoDetalhe.model} />
                                     </Col>
-
-
-
-                                </Row>
-                                <Row className={style.rowInfo}>
-                                    <Col span={24}>
-                                        <Statistic title="Empresa" value={empresaInfo?.name} />
+                                    <Col span={12}>
+                                        {renderStatus()}
                                     </Col>
                                 </Row>
                                 <Row className={style.rowInfo}>
-                                    <Col span={24}>
+                                    <Col span={12}>
+                                        <Statistic title="Empresa" value={empresaInfo?.name} />
+                                    </Col>
+
+                                    <Col span={12}>
                                         <Statistic title="Unidade" value={unidadeInfo?.name} />
                                     </Col>
                                 </Row>
-                            </Col>
-                            <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
-                                <ImageDetalhe />
                             </Col>
                         </Row>
                         <Row className="tabs-infos">

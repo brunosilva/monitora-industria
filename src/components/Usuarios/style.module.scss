@@ -1,3 +1,5 @@
+@import '../../style/mixins/overflowY.scss';
+
 .container{
     .content{
         @media only screen and (max-width:768px){
@@ -6,23 +8,8 @@
         }
 
         .columnCards{
-            max-height: 600px;
-            overflow-y: auto;
-            padding-right: 2rem;
-
-            &::-webkit-scrollbar {
-                width: 5px;               /* width of the entire scrollbar */
-            }
-              
-            &::-webkit-scrollbar-track {
-                background: var(--gray-6);        /* color of the tracking area */
-            }
-              
-            &::-webkit-scrollbar-thumb {
-                background: var(--gray-10);    /* color of the scroll thumb */
-                border-radius: 20px;       /* roundness of the scroll thumb */
-            }
-
+            @include overflowY;
+            
             .card{
                 margin-bottom: 1rem;
             }
