@@ -20,11 +20,22 @@ interface UsuarioDetalheProps {
     email: string;
 }
 
+interface EmpresaProds {
+    id: number;
+    name: string;
+}
+
+interface UnidadeProds {
+    id: number;
+    name: string;
+}
+
 export default function Usuarios(){
     const [usuarios, setUsuarios] = useState<UsuarioProps[]>([]);
     const [usuarioPesquisar, setUsuarioPesquisar] = useState(1);
     const [usuarioDetalhe, setUsuarioDetalhe] = useState<UsuarioDetalheProps>({} as UsuarioDetalheProps);
-
+    const [empresaInfo, setEmpresaInfo] = useState<EmpresaProds>();
+    const [unidadeInfo, setUnidadeInfo] = useState<UnidadeProds>();
 
     useEffect(() => {
         api.get<UsuarioProps[]>('/users').then(response => {
@@ -35,6 +46,14 @@ export default function Usuarios(){
     useEffect(() => {
         api.get<UsuarioDetalheProps>(`/users/${usuarioPesquisar}`).then(response => {
             setUsuarioDetalhe(response.data);
+        })
+                
+        api.get<EmpresaProds>(`/companies/${usuarioPesquisar}`).then(response => {
+            setEmpresaInfo(response.data);
+        })
+
+        api.get<UnidadeProds>(`/units/${usuarioPesquisar}`).then(response => {
+            setUnidadeInfo(response.data);
         })
     }, [usuarioPesquisar])
 
@@ -79,11 +98,19 @@ export default function Usuarios(){
                         </Col>
 
                         <Col span={24}>
-                            <Statistic title="Modelo" value={usuarioDetalhe.name} />
+                            <Statistic title="Nome" value={usuarioDetalhe.name} />
                         </Col>
 
                         <Col span={24}>
-                            <Statistic title="Modelo" value={usuarioDetalhe.email} />
+                            <Statistic title="Email" value={usuarioDetalhe.email} />
+                        </Col>
+                
+                        <Col span={24}>
+                            <Statistic title="Empresa" value={empresaInfo?.name} />
+                        </Col>
+                        
+                        <Col span={24}>
+                            <Statistic title="Unidade" value={unidadeInfo?.name} />
                         </Col>
                     </div>
                 </Col>
