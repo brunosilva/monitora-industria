@@ -1,7 +1,7 @@
 # Projeto Monitora Industria
 
 Este projeto foi concebido para monitorar setores da industria. Aqui, apresentamos relatório dos seguintes setores:
-[Monitora Industrica](https://monitora-industria.vercel.app/)
+Veja aqui: [Monitora Industrica](https://monitora-industria.vercel.app/)
 *   Body (Dashboard)
 *   Ativos
 *   Usuários
