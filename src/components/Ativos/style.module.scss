@@ -25,6 +25,13 @@
         .detalhesSection{
             @include overflowY;
 
+            .tabsInfos{
+                width: 100% !important;
+
+                .tabsContent{
+                    width: 100% !important;
+                }
+            }
             .rowInfo{
                 width: 100%;
                 margin-bottom: 2rem;

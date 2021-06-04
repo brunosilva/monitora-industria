@@ -277,33 +277,30 @@ export default function Ativos() {
                                 </Row>
                             </Col>
                         </Row>
-                        <Row className="tabs-infos">
-                            <Tabs defaultActiveKey="1">
+                        <Row className={style.tabsInfos}>
+                            <Tabs defaultActiveKey="1" className={style.tabsContent}>
                                 <TabPane tab="Especificações" key="1">
                                     <Row className={style.rowInfo}>
-                                        <Col span={24}>
+                                        <Col span={8}>
                                             <Statistic title="Max temp" value={ativoDetalhe.specifications?.maxTemp} />
                                         </Col>
-                                    </Row>
-                                    <Row className={style.rowInfo}>
-                                        <Col span={24}>
+
+                                        <Col span={8}>
                                             <Statistic title="Power" value={ativoDetalhe.specifications?.power} />
                                         </Col>
-                                    </Row>
-                                    <Row className={style.rowInfo}>
-                                        <Col span={24}>
+
+                                        <Col span={8}>
                                             <Statistic title="RPM" value={ativoDetalhe.specifications?.rpm} />
                                         </Col>
                                     </Row>
                                 </TabPane>
                                 <TabPane tab="Métricas" key="2">
                                     <Row className={style.rowInfo}>
-                                        <Col span={24}>
+                                        <Col span={12}>
                                             <Statistic title="Tempo de atividade" value={ativoDetalhe.metrics?.totalCollectsUptime} />
                                         </Col>
-                                    </Row>
-                                    <Row className={style.rowInfo}>
-                                        <Col span={24}>
+
+                                        <Col span={12}>
                                             <Statistic title="Tempo total de coleta" value={ativoDetalhe.metrics?.totalUptime} />
                                         </Col>
                                     </Row>
