@@ -8,6 +8,7 @@ Veja aqui: [Monitora Industrica](https://monitora-industria.vercel.app/)
 *   Unidades
 *   Empresas
 
+
 ## Desenvolvido com: 
 
 Biblioteca de design do React [AntDesign](https://ant.design/docs/spec/introduce) , que permite criar interface de usuário elegante realizando chamadas de componentes pré definidos.
@@ -25,9 +26,17 @@ Os demais componentes, está bem semantico, o nome de cada já diz o conteúdo q
 *   Em Usuários, na coluna de detalhes, possui um botão ***Editar*** que ao clicar abre um modal com input já com as informações do item/id clicado.
 
 
+## Observações
+
+* `./src/Ativos` as imagems são apenas preview, ao clicar, abre em seu formato original.
+* `./src/Ativos` e `./src/Usuarios` o botão editar abre o modal, porém, não está digitando nos inputs e consequentemente não está enviando dados para API ao salvar.
+* No SASS utilizando ***mixin*** para reutilizar códigos que serão iguais em vários momentos: No arquivo *style.module.scss* dos componentes *Ativos* e *Usuarios* está chamando a include `@include overflowY;`. Seu código SASS completo está em `./src/style/mixins`.
+
+
 ## Responsividade
 
 Iniciei um trabalho de definição de tamanho(Responsividade) (baseado no AntDesign) dos elementos de acordo com o dispositivo acessado. 
+
 
 ## Como Iniciar projeto local
 
