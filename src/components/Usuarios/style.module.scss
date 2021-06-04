@@ -22,7 +22,9 @@
             }
         }
 
-        .detalhesAtivo{
+        .detalhesSection{
+            @include overflowY;
+            
             div + div{
                 margin-bottom: 1rem;
             }

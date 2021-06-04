@@ -1,6 +1,10 @@
-import { Alert, Button, Card, Col, Image, Progress, Row, Statistic, Tabs, Typography } from 'antd';
+import { Alert, Button, Card, Col, Divider, Form, Image, Input, Progress, Row, Statistic, Tabs, Typography } from 'antd';
+import {
+    CloseOutlined,
+    InfoCircleOutlined
+} from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-
+import Modal from 'react-modal';
 import { api } from '../../services/api';
 
 import style from './style.module.scss';
@@ -14,7 +18,7 @@ interface AtivosProps {
     image: string;
 }
 
-interface AtivosDetalhesProps{
+interface AtivosDetalhesProps {
     id: number;
     sensors: {
         name: string
@@ -48,13 +52,35 @@ interface UnidadeProds {
     name: string;
 }
 
+const customStyles = {
+    content: {
+        width: '50%',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
 export default function Ativos() {
     const [ativos, setAtivos] = useState<AtivosProps[]>([]);
     const [ativoPesquisar, setAtivoPesquisar] = useState(1);
     const [ativoDetalhe, setAtivoDetalhe] = useState<AtivosDetalhesProps>({} as AtivosDetalhesProps);
     const [empresaInfo, setEmpresaInfo] = useState<EmpresaProds>();
     const [unidadeInfo, setUnidadeInfo] = useState<UnidadeProds>();
-      
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [form] = Form.useForm();
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     useEffect(() => {
         api.get<AtivosProps[]>(`/assets`).then(response => {
             setAtivos(response.data);
@@ -76,7 +102,20 @@ export default function Ativos() {
     }, [ativoPesquisar])
 
     function renderStatus() {
-        switch(ativoDetalhe.status) {
+        switch (ativoDetalhe.status) {
+            case 'inAlert':
+                return <Alert message="Em Alerta" type="warning" />;
+            case 'inOperation':
+                return <Alert message="Em Operação" type="success" />;
+            case 'inDowntime':
+                return <Alert message="Em Parada" type="error" />;
+            default:
+                return '';
+        }
+    };
+
+    function renderStatusCard(status: string) {
+        switch (status) {
             case 'inAlert':
                 return <Alert message="Em Alerta" type="warning" />;
             case 'inOperation':
@@ -112,50 +151,104 @@ export default function Ativos() {
                 <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
                     <div className={style.overflowY}>
                         {ativos.map(item => (
-                            <Card 
+                            <Card
                                 className={style.card}
-                                key={item.id} 
-                                type="inner" 
+                                key={item.id}
+                                type="inner"
                                 hoverable
-                                >
-                                    <Row className={style.rowInfoCard}>
-                                        <Col xs={24} sm={24} md={24} lg={4}>
-                                            <Image
-                                                width={50}
-                                                src={item.image}
-                                                alt={item.name}
-                                            />
-                                        </Col>
-                                        <Col xs={24} sm={24} md={24} lg={11}>
-                                            {item.name}
-                                        </Col>
-                                        <Col xs={24} sm={24} md={24} lg={5}>
-                                            {item.status}
-                                        </Col>
-                                        <Col xs={24} sm={24} md={24} lg={4}>
-                                            <Button type="primary" onClick={(e) => handleClickButton(item.id)}>Ver detalhes</Button>
-                                        </Col>
-                                    </Row>
+                            >
+                                <Row className={style.rowInfoCard}>
+                                    <Col xs={24} sm={24} md={24} lg={4}>
+                                        <Image
+                                            width={50}
+                                            src={item.image}
+                                            alt={item.name}
+                                        />
+                                    </Col>
+                                    <Col xs={24} sm={24} md={24} lg={11}>
+                                        {item.name}
+                                    </Col>
+                                    <Col xs={24} sm={24} md={24} lg={5}>
+                                        {renderStatusCard(item.status)}
+                                    </Col>
+                                    <Col xs={24} sm={24} md={24} lg={4}>
+                                        <Button type="primary" onClick={(e) => handleClickButton(item.id)}>Ver detalhes</Button>
+                                    </Col>
+                                </Row>
                             </Card>
                         ))}
                     </div>
                 </Col>
                 <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
-                    <div className={style.detalhesAtivo}>
+                    <div className={style.detalhesSection}>
                         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                             <Col className="gutter-row" xs={24} sm={24} md={24} lg={24}>
+                                <Row className={style.rowInfoCard}>
+                                    <Col className={style.nameItem} span={12} style={{ float: 'right' }}>
+                                        <Button type="primary" onClick={openModal}>Editar</Button>
+                                    </Col>
+                                </Row>
+                                <Divider />
+                                <Row className={style.rowInfoCard}>
+                                    <Modal
+                                        isOpen={modalIsOpen}
+                                        onRequestClose={closeModal}
+                                        style={customStyles}
+                                    >
+
+                                        <CloseOutlined style={{ float: 'right' }} onClick={closeModal} />
+                                        <Form
+                                            layout="vertical"
+                                            form={form}>
+                                            <h1>Editar Ativo</h1>
+                                            <strong>Id: #{ativoDetalhe.id}</strong> - {ativoDetalhe.name}
+                                            <Divider />
+                                            <Form.Item
+                                                label="Nome"
+                                                required={true}
+                                            >
+                                                <Input name="name" type="text" value={ativoDetalhe?.name} placeholder="Ex: Motor 123" />
+                                            </Form.Item>
+                                            <Form.Item
+                                                label="Modelo"
+                                                required={true}
+                                            >
+                                                <Input name="model" type="text" value={ativoDetalhe?.model} placeholder="Ex: Motor" />
+                                            </Form.Item>
+
+                                            <Form.Item
+                                                label="Empresa"
+                                                required={true}
+                                                tooltip={{ title: 'Empresa atual', icon: <InfoCircleOutlined /> }}
+                                            >
+                                                <Input name="empresa" value={empresaInfo?.name} placeholder="Ex: Empresa XY Corp" />
+                                            </Form.Item>
+                                            <Form.Item
+                                                label="Unidade"
+                                                required={true}
+                                                tooltip={{ title: 'Unidade atual', icon: <InfoCircleOutlined /> }}
+                                            >
+                                                <Input name="unidade" value={unidadeInfo?.name} placeholder="Ex: Unidade Sul" />
+                                            </Form.Item>
+                                            <Divider />
+                                            <Button style={{ float: 'right' }} type="primary" data-testid="edit-user-button">
+                                                <div className="text">Editar Ativo</div>
+                                            </Button>
+                                        </Form>
+                                    </Modal>
+                                </Row>
                                 <Row className={style.rowInfo}>
                                     <Col className={style.nameItem} xs={24} sm={24} md={24} lg={9}>
                                         <Statistic title="Nome / Healthscore / Foto" value={ativoDetalhe.name} />
                                     </Col>
                                     <Col xs={24} sm={24} md={24} lg={6}>
-                                        <Progress 
+                                        <Progress
                                             strokeColor={{
                                                 '0%': '#108ee9',
                                                 '60%': '#FFA500',
                                                 '100%': '#FF0000',
                                             }}
-                                            type="circle" 
+                                            type="circle"
                                             percent={ativoDetalhe.healthscore} />
                                     </Col>
                                     <Col xs={24} sm={24} md={24} lg={9}>

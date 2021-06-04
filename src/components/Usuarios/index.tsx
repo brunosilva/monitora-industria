@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, Form, Input, Row, Statistic, Typography } from 'antd';
+import { Button, Card, Col, Divider, Form, Input, Row, Select, Statistic, Typography } from 'antd';
 import {
     CloseOutlined,
     InfoCircleOutlined
@@ -36,18 +36,18 @@ interface UnidadeProds {
 }
 
 const customStyles = {
-    content : {
-        width                 : '50%',
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)'
+    content: {
+        width: '50%',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
     }
-  };
+};
 
-  
+
 export default function Usuarios(){
     const [usuarios, setUsuarios] = useState<UsuarioProps[]>([]);
     const [usuarioPesquisar, setUsuarioPesquisar] = useState(1);
@@ -120,15 +120,13 @@ export default function Usuarios(){
                     </div>
                 </Col>
                 <Col className="gutter-row" xs={24} sm={24} md={24} lg={12}>
-                    <div className={style.detalhesAtivo}>
+                    <div className={style.detalhesSection}>
                         <Row className={style.rowInfoCard}>
-                            <Col className={style.nameItem} span={12}>
-                                <Statistic title="Id" value={usuarioDetalhe.id} />
-                            </Col>
                             <Col className={style.nameItem} span={12}>
                                 <Button type="primary" onClick={openModal}>Editar</Button>
                             </Col>
                         </Row>
+                        <Divider />
                         <Row>
                             <Modal
                                 isOpen={modalIsOpen}
@@ -147,7 +145,7 @@ export default function Usuarios(){
                                         label="Nome"
                                         required={true}
                                     >
-                                        <Input name="name" value={usuarioDetalhe.name} placeholder="Ex: Testador Um" />
+                                        <Input name="name" type="text" value={usuarioDetalhe?.name} placeholder="Ex: Testador Um" />
                                     </Form.Item>
                                     <Form.Item
                                         label="E-mail"
@@ -177,6 +175,10 @@ export default function Usuarios(){
                             </Modal>
                         </Row>
                         <Row>
+                            <Col className={style.nameItem} span={12}>
+                                <Statistic title="Id" value={usuarioDetalhe.id} />
+                            </Col>
+
                             <Col span={24}>
                                 <Statistic title="Nome" value={usuarioDetalhe.name} />
                             </Col>
