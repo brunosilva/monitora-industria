@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, Form, Input, Row, Select, Statistic, Typography } from 'antd';
+import { Button, Card, Col, Divider, Form, Input, Row, Statistic, Typography } from 'antd';
 import {
     CloseOutlined,
     InfoCircleOutlined

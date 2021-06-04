@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Alert, Button, Card, Col, Divider, Form, Image, Input, Progress, Row, Statistic, Tabs, Typography } from 'antd';
 import {
     CloseOutlined,
     InfoCircleOutlined
 } from '@ant-design/icons';
-import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+
 import { api } from '../../services/api';
 
 import style from './style.module.scss';
@@ -282,26 +283,26 @@ export default function Ativos() {
                                 <TabPane tab="Especificações" key="1">
                                     <Row className={style.rowInfo}>
                                         <Col span={8}>
-                                            <Statistic title="Max temp" value={ativoDetalhe.specifications?.maxTemp} />
+                                            <Statistic title="Max temp" value={ativoDetalhe.specifications?.maxTemp == null ? '-' : ativoDetalhe.specifications?.maxTemp} />
                                         </Col>
 
                                         <Col span={8}>
-                                            <Statistic title="Power" value={ativoDetalhe.specifications?.power} />
+                                            <Statistic title="Power" value={ativoDetalhe.specifications?.power == null ? '-' : ativoDetalhe.specifications?.power} />
                                         </Col>
 
                                         <Col span={8}>
-                                            <Statistic title="RPM" value={ativoDetalhe.specifications?.rpm} />
+                                            <Statistic title="RPM" value={ativoDetalhe.specifications?.rpm == null ? '-' : ativoDetalhe.specifications?.rpm} />
                                         </Col>
                                     </Row>
                                 </TabPane>
                                 <TabPane tab="Métricas" key="2">
                                     <Row className={style.rowInfo}>
                                         <Col span={12}>
-                                            <Statistic title="Tempo de atividade" value={ativoDetalhe.metrics?.totalCollectsUptime} />
+                                            <Statistic title="Tempo de atividade" value={ativoDetalhe.metrics?.totalCollectsUptime == null ? '-' : ativoDetalhe.metrics?.totalCollectsUptime} />
                                         </Col>
 
                                         <Col span={12}>
-                                            <Statistic title="Tempo total de coleta" value={ativoDetalhe.metrics?.totalUptime} />
+                                            <Statistic title="Tempo total de coleta" value={ativoDetalhe.metrics?.totalUptime == null ? '-' : ativoDetalhe.metrics?.totalUptime} />
                                         </Col>
                                     </Row>
                                 </TabPane>

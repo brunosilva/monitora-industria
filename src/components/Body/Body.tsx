@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Col, Row } from 'antd';
 import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
 import { api } from '../../services/api';
-import HighchartsReact from 'highcharts-react-official';
-import { Col, Row } from 'antd';
 
 import style from './style.module.scss';
 
@@ -157,9 +157,6 @@ const chartDataStatusAtivos = (inAlert: Number = 0, inOperation: Number = 0, inD
 }
 
 export default function Body() {
-    const [usersUnit, setUsersUnit] = useState<UserUnitProps[]>([]);
-    const [ativoUnit, setAtivoUnit] = useState<AtivoUnitProps[]>([]);
-    const [statusAtivo, setStatusAtivo] = useState<StatusAtivoProps[]>([]);
     const [initializeChart, _] = useState(0);
     const [optionsChart, setOptionsChart] = useState(chartData());
     const [optionsChartAtivos, setOptionsChartAtivos] = useState(chartDataAtivos());

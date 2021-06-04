@@ -88,7 +88,7 @@ function renderSwitchComponent() {
               {renderSwitchComponent()}
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}><a href="https://www.linkedin.com/in/bruno-silva0109/" target="_blank">Bruno Silva</a> ©2021</Footer>
+          <Footer style={{ textAlign: 'center' }}><a href="https://www.linkedin.com/in/bruno-silva0109/" target="_blank" rel="noreferrer">Bruno Silva</a> ©2021</Footer>
         </Layout>
       </Layout>
   )
