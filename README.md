@@ -5,3 +5,5 @@ Este projeto foi concebido para monitorar setores da industria. Aqui, apresentam
 *   Usuários
 *   Unidades
 *   Empresas
+
+Desenvolvido com [AntDesign]('https://ant.design/docs/spec/introduce'), 
