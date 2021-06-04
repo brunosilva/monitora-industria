@@ -257,22 +257,22 @@ export default function Ativos() {
                                     </Col>
                                 </Row>
                                 <Row className={style.rowInfo}>
-                                    <Col span={9}>
+                                    <Col xs={24} sm={24} md={24} lg={9}>
                                         <Statistic title="Modelo" value={ativoDetalhe.model} />
                                     </Col>
-                                    <Col span={9}>
+                                    <Col xs={24} sm={24} md={24} lg={9}>
                                         <Statistic title="Sensor" value={ativoDetalhe.sensors?.name} />
                                     </Col>
-                                    <Col span={6}>
+                                    <Col xs={24} sm={24} md={24} lg={9}>
                                         {renderStatus()}
                                     </Col>
                                 </Row>
                                 <Row className={style.rowInfo}>
-                                    <Col span={12}>
+                                    <Col xs={24} sm={24} md={24} lg={12}>
                                         <Statistic title="Empresa" value={empresaInfo?.name} />
                                     </Col>
 
-                                    <Col span={12}>
+                                    <Col xs={24} sm={24} md={24} lg={12}>
                                         <Statistic title="Unidade" value={unidadeInfo?.name} />
                                     </Col>
                                 </Row>
@@ -282,26 +282,26 @@ export default function Ativos() {
                             <Tabs defaultActiveKey="1" className={style.tabsContent}>
                                 <TabPane tab="Especificações" key="1">
                                     <Row className={style.rowInfo}>
-                                        <Col span={8}>
+                                        <Col xs={24} sm={24} md={24} lg={8}>
                                             <Statistic title="Max temp" value={ativoDetalhe.specifications?.maxTemp == null ? '-' : ativoDetalhe.specifications?.maxTemp} />
                                         </Col>
 
-                                        <Col span={8}>
+                                        <Col xs={24} sm={24} md={24} lg={8}>
                                             <Statistic title="Power" value={ativoDetalhe.specifications?.power == null ? '-' : ativoDetalhe.specifications?.power} />
                                         </Col>
 
-                                        <Col span={8}>
+                                        <Col xs={24} sm={24} md={24} lg={8}>
                                             <Statistic title="RPM" value={ativoDetalhe.specifications?.rpm == null ? '-' : ativoDetalhe.specifications?.rpm} />
                                         </Col>
                                     </Row>
                                 </TabPane>
                                 <TabPane tab="Métricas" key="2">
                                     <Row className={style.rowInfo}>
-                                        <Col span={12}>
+                                        <Col xs={24} sm={24} md={24} lg={12}>
                                             <Statistic title="Tempo de atividade" value={ativoDetalhe.metrics?.totalCollectsUptime == null ? '-' : ativoDetalhe.metrics?.totalCollectsUptime} />
                                         </Col>
 
-                                        <Col span={12}>
+                                        <Col xs={24} sm={24} md={24} lg={12}>
                                             <Statistic title="Tempo total de coleta" value={ativoDetalhe.metrics?.totalUptime == null ? '-' : ativoDetalhe.metrics?.totalUptime} />
                                         </Col>
                                     </Row>
