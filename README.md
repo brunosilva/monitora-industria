@@ -31,5 +31,6 @@ Iniciei um trabalho de definição de tamanho(Responsividade) (baseado no AntDes
 ## Como Iniciar
 
 [1°]    -   Ao baixar o projeto, execute `npm install`.
+
 [2°]    -   Após tudo instalado, pode executar `npm run start` em seu terminal.
 
