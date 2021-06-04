@@ -1,6 +1,7 @@
 # Projeto Monitora Industria
 
 Este projeto foi concebido para monitorar setores da industria. Aqui, apresentamos relatório dos seguintes setores:
+[Monitora Industrica](https://monitora-industria.vercel.app/)
 *   Body (Dashboard)
 *   Ativos
 *   Usuários
@@ -9,7 +10,7 @@ Este projeto foi concebido para monitorar setores da industria. Aqui, apresentam
 
 ## Desenvolvido com: 
 
-Biblioteca de design do React [AntDesign]('https://ant.design/docs/spec/introduce'), que permite criar interface de usuário elegante realizando chamadas de componentes pré definidos.
+Biblioteca de design do React [AntDesign](https://ant.design/docs/spec/introduce) , que permite criar interface de usuário elegante realizando chamadas de componentes pré definidos.
 
 A aplicação está desenvolvida totamente dentro da pasta `./src` e dentro dessa pasta contém:
 
@@ -28,7 +29,7 @@ Os demais componentes, está bem semantico, o nome de cada já diz o conteúdo q
 
 Iniciei um trabalho de definição de tamanho(Responsividade) (baseado no AntDesign) dos elementos de acordo com o dispositivo acessado. 
 
-## Como Iniciar
+## Como Iniciar projeto local
 
 [1°]    -   Ao baixar o projeto, execute `npm install`.
 
