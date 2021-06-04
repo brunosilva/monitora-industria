@@ -1,5 +1,6 @@
-import { Button, Card, Col, Row, Statistic, Typography } from 'antd';
 import { useEffect, useState } from 'react'
+import { Button, Card, Col, Row, Statistic, Typography } from 'antd';
+
 import { api } from '../../services/api';
 
 import style from './style.module.scss';

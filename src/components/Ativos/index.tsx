@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { Alert, Button, Card, Col, Divider, Form, Image, Input, Progress, Row, Statistic, Tabs, Typography } from 'antd';
 import {
     CloseOutlined,
     InfoCircleOutlined
 } from '@ant-design/icons';
-import Modal from 'react-modal';
 
 import { api } from '../../services/api';
 

@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import { Button, Card, Col, Divider, Form, Input, Row, Statistic, Typography } from 'antd';
 import {
     CloseOutlined,
     InfoCircleOutlined
   } from '@ant-design/icons';
-import { useEffect, useState } from 'react';
-import Modal from 'react-modal';
+  
 import { api } from '../../services/api';
 
 import style from './style.module.scss';
@@ -46,7 +47,6 @@ const customStyles = {
         transform: 'translate(-50%, -50%)'
     }
 };
-
 
 export default function Usuarios(){
     const [usuarios, setUsuarios] = useState<UsuarioProps[]>([]);
